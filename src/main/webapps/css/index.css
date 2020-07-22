@@ -1,0 +1,41 @@
+#main{
+    height: 800px;
+    width: 70%;
+    margin-left: 15%;
+    margin-top: 20px;
+}
+#title{
+    height: auto ;
+    line-height: 30px;
+}
+#files{
+    height: 800px;
+    width: 45%;
+    /*background-color: red;*/
+    float: left;
+    overflow: auto;
+}
+#linux{
+    height: 800px;
+    width: 55%;
+    /*background-color: rebeccapurple;*/
+    float: left;
+}
+.svnInfo{
+    width: 600px;
+}
+.linuxInfo{
+    width: 150px;
+}
+#show_svn,#run_update{
+    margin-left: 25%;
+}
+#files>li{
+    display: inline-block;
+}
+.linux_none{
+    color: red;
+}
+#select_checkbox{
+    display: none;
+}

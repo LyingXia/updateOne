@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd ">
+
+    <context:spring-configured />
+    <task:annotation-driven executor="annotationExecutor" />
+    <task:executor id="annotationExecutor" pool-size="20"/>
+
+
+    <context:component-scan base-package="com.update.controller">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
+
+    <!-- 启动包扫描功能，以便注册带有@Controller、@service、@repository、@Component等注解的类成为spring的bean -->
+    <context:component-scan base-package="com.update.service"/>
+    <!--<context:component-scan base-package="com.test.util"/>-->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:META-INF/*.properties" file-encoding="utf-8" />
+
+    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath*:META-INF/*.properties</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="properties" ref="configProperties" />
+    </bean>
+    <bean id="PropertiesUtil" class="com.update.util.PropertiesUtil"/>
+    <bean id="AppServletService" class="com.update.service.updateAllService"/>
+
+
+
+
+
+
+    <!--    <context:property-placeholder ignore-unresolvable="true" location="classpath*:/META-INF/*.properties" />
+        <bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+             <array>
+                 <value>classpath:META-INF/*.properties</value>
+             </array>
+         </property>
+     </bean>-->
+
+
+</beans>
