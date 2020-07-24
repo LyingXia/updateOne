@@ -91,7 +91,7 @@ public class update_lib {
                 connect_linux.execute(connection, "rm -rf " + lib_lin_path + "*");
                 logger.info("rm -rf " + lib_lin_path + "*");
                 scpClient.put(jar_files(lib_win_path), lib_lin_path);
-                logger.info(jar_files(lib_win_path)+"=====>"+lib_lin_path);
+                logger.info(lib_win_path+"=====>"+lib_lin_path);
             }
             update_history.put(lib_win_path, lib_lin_path);
         }catch (Exception e){
