@@ -185,6 +185,11 @@ $('document').ready(function(){
                 if(JSON.stringify(wars_update) =="{}"){
                     alert("请确认路径是否正确\n" +  svn_path);
                 }
+                if(wars_update =="linux服务器连接失败，请确认参数"){
+                    alert("linux服务器连接失败，请确认参数\n");
+                    $("#linux").append("<p>linux服务器连接失败，请确认参数</p>");
+                    return
+                }
                 for (win_war_path in wars_update) {
                     var lin_war_path = wars_update[win_war_path];
                     if (lin_war_path.toString() == ""){
@@ -208,8 +213,12 @@ $('document').ready(function(){
             scriptCharset:"UTF-8",
             success: function (data) {
                 var libs_update = data["libs"];
+                var wars_update = data["wars"];
                 if(JSON.stringify(libs_update)=="{}"){
                     alert("请确认路径是否正确\n" +  svn_path);
+                }
+                if(wars_update =="linux服务器连接失败，请确认参数"){
+                    return
                 }
                 for (win_war_path in libs_update) {
                     var lin_war_path = libs_update[win_war_path];

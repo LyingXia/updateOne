@@ -107,11 +107,17 @@ public class updateAllService {
             Connection conn = new Connection(linux[0], Integer.parseInt(linux[1]));
             conn.connect();
             conn.authenticateWithPassword(linux[2], linux[3]);
-            for (Object key : wars_update.keySet()) {
-                update_war_history.putAll(uw.win_to_linux_one(svn_path, key.toString(),wars_update.get(key).toString(),conn));
-            }
-            for (Object key : libs_update.keySet()) {
-                update_lib_history.putAll(ul.win_to_linux_one(svn_path, key.toString(),libs_update.get(key).toString(),conn));
+            if (conn.isAuthenticationComplete()) {
+                for (Object key : wars_update.keySet()) {
+                    update_war_history.putAll(uw.win_to_linux_one(svn_path, key.toString(), wars_update.get(key).toString(), conn));
+                }
+                for (Object key : libs_update.keySet()) {
+                    update_lib_history.putAll(ul.win_to_linux_one(svn_path, key.toString(), libs_update.get(key).toString(), conn));
+                }
+            }else{
+                allJson.put("wars","linux服务器连接失败，请确认参数");
+                logger.info("linux服务器连接失败，请确认参数!!!! IP:" + linux[0] + "----->password:" + linux[3]);
+                return allJson.toJSONString();
             }
             conn.close();
         }catch (Exception e) {
@@ -132,9 +138,13 @@ public class updateAllService {
             Connection conn = new Connection(linux[0], Integer.parseInt(linux[1]));
             conn.connect();
             conn.authenticateWithPassword(linux[2], linux[3]);
-            for (Object key : wars_update.keySet()) {
-                update_war_history.putAll(uw.win_to_linux_one(svn_path, key.toString(),wars_update.get(key).toString(),conn));
-            }
+            if (conn.isAuthenticationComplete()) {
+                for (Object key : wars_update.keySet()) {
+                    update_war_history.putAll(uw.win_to_linux_one(svn_path, key.toString(), wars_update.get(key).toString(), conn));
+                }
+            }else{ allJson.put("wars","linux服务器连接失败，请确认参数");
+                logger.info("linux服务器连接失败，请确认参数!!!! IP:" + linux[0] + "----->password:" + linux[3]);
+                return allJson.toJSONString();}
             conn.close();
         }catch (Exception e) {
             e.printStackTrace();
@@ -153,9 +163,13 @@ public class updateAllService {
             Connection conn = new Connection(linux[0], Integer.parseInt(linux[1]));
             conn.connect();
             conn.authenticateWithPassword(linux[2], linux[3]);
+            if (conn.isAuthenticationComplete()) {
             for (Object key : libs_update.keySet()) {
                 update_lib_history.putAll(ul.win_to_linux_one(svn_path, key.toString(),libs_update.get(key).toString(),conn));
             }
+            }else{ allJson.put("wars","linux服务器连接失败，请确认参数");
+                logger.info("linux服务器连接失败，请确认参数!!!! IP:" + linux[0] + "----->password:" + linux[3]);
+                return allJson.toJSONString();}
             conn.close();
         }catch (Exception e) {
             e.printStackTrace();
