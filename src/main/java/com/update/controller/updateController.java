@@ -50,4 +50,30 @@ public class updateController {
         return ua.update_war_few(wars,linuxInfo,svn_path);
     }
 
+    // SQL页面
+    @RequestMapping(value = "/showSqlFile",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String showSqlFile(@RequestParam("svn_path") String svn_path){
+        return ua.showSqlFile(svn_path);
+    }
+
+    @RequestMapping(value = "/QueryFiles",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String SQLs(@RequestParam("file_dir") String file_dir){
+        return ua.QueryFiles(file_dir);
+    }
+
+    @RequestMapping(value = "/runSqlFile",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String SQLs(@RequestParam("dbInfo") String dbInfo,@RequestParam("sql_path") String sql_path){
+        return ua.run_sql(dbInfo,sql_path);
+    }
+
+    @RequestMapping(value = "/readSqlResult",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String readSqlResult(@RequestParam("resultFile") String resultFile){
+        return ua.readSqlResult(resultFile);
+    }
+
+
 }

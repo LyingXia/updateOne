@@ -21,9 +21,10 @@ public class updateAllService {
     private static update_conf uc = new update_conf();
     private static connect_linux cl = new connect_linux();
     private static PropertiesUtil pu = new PropertiesUtil();
-    private static sqlUtil su = new sqlUtil();
+    private static sqlTxtUtil su = new sqlTxtUtil();
     private static HashMap linux_has_war;
     private static HashMap file_has_war;
+    private static HashMap file_has_sql;
     private static HashMap file_has_lib;
     private static String[] linux_has_lib;
 
@@ -178,37 +179,72 @@ public class updateAllService {
         return allJson.toJSONString();
     }
 
-    public static String run_sql(String sql_path,String userid,String password){
-        String result_path = pu.getDbResultPath();
-        su.run_sql(sql_path,userid,password,result_path);
-        return result_path;
+
+    //SQL相关的
+    public static String showSqlFile(String svn_path){
+        HashMap file_has_sql = new HashMap();
+        JSONObject allJson = new JSONObject();
+        svn_path = pu.getSvnPath(svn_path);
+        File file = new File(svn_path);
+        if(file.exists()) {
+            LinkedList<File> list = new LinkedList<File>();
+            list.add(file);
+            while (!list.isEmpty()) {
+                File f = list.poll();
+                String path = f.toString();
+                String prePath = f.getParent();
+                if ( f.toString().indexOf(".sql")>0 && !f.toString().contains("对外测试") && !f.toString().contains("项目数据库") ){
+                    String sql_filename =prePath.substring(prePath.lastIndexOf(File.separator)+1) +"_"+ path.substring(path.lastIndexOf(File.separator)+1);
+                    file_has_sql.put(path,sql_filename);
+                }
+                File[] files = f.listFiles();
+                if (files != null) {
+                    list.addAll(Arrays.asList(files));
+                }
+            }
+        }
+        allJson.put("sqlFiles",file_has_sql);
+        return allJson.toJSONString();
+    }
+
+    public static String QueryFiles(String file_dir){
+        JSONObject file_json = new JSONObject();
+        String files_dir = null;
+        if(file_dir.equals("Base")){
+            files_dir = pu.getSvnBasePath();
+        }else if(file_dir.equals("Pro")){
+            files_dir = pu.getSvnProPath();
+        }else if(file_dir.equals("Branch")){
+            files_dir = pu.getSvnBranchPath();
+        }else {
+            file_json.put("files","获取文件目录异常");
+            return file_json.toJSONString();
+        }
+        File file  = new File(files_dir);
+        File[] fileName= file.listFiles();
+        file_json.put("sqlFiles",fileName);
+        return file_json.toJSONString();
+    }
+
+    public static String run_sql(String dbInfo,String sql_path){
+        JSONObject result_json = new JSONObject();
+        String[] db = dbInfo.split("db_fgf");
+        String result = su.readSQL(sql_path,db[0],db[1],db[2]);
+        result_json.put("result_file",result);
+        return result_json.toJSONString();
+    }
+
+    public static String readSqlResult(String resultFile){
+        JSONObject result_json = new JSONObject();
+        String filePath = resultFile.replace("执行结果：","");
+        logger.info("读取"+filePath);
+        String result = su.readSqlResult(filePath);
+        result_json.put("result",result);
+        return result_json.toJSONString();
     }
 
     public static void main(String[] args) {
-        updateAllService ua  =new updateAllService();
-        String[]  update_mechine = {"172.31.2.126","22","root","cfca_1234!"};
-//       String filename = "\\\\192.168.143.142\\03-产品开发\\0302-AutoPublish\\00-按项目发版\\B633-BopOfflineGathering\\";
-       String filename = "\\\\192.168.143.142\\03-产品开发\\0302-AutoPublish\\01-按上线日期发版\\20191219\\01-基线发版\\";
-       ua.show_svn(filename);
-        try{
-            Connection conn = new Connection(update_mechine[0], Integer.parseInt(update_mechine[1]));
-            conn.connect();
-            // 登录
-            conn.authenticateWithPassword(update_mechine[2], update_mechine[3]);
-            String result = cl.execute(conn,"ls /CPCN/Payment/AggrateBatch");
-            System.out.println("args = [" + result + "]");
-//            linux_has_war = uw.linux_has_war(conn);
-//            System.out.println(linux_has_war);
-//            file_has_war = uw.file_has_war(filename);
-//            System.out.println(file_has_war);
-//            SCPClient scpClient = conn.createSCPClient();
-//            uw.win_to_linux(linux_has_war,file_has_war,scpClient);
-//            linux_has_lib = ul.linux_has_lib(conn);
-//            file_has_lib = ul.file_has_lib(filename) ;
-//            ul.win_to_linux(linux_has_lib,file_has_lib,conn);
-            conn.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        updateAllService ua = new updateAllService();
+
     }
 }

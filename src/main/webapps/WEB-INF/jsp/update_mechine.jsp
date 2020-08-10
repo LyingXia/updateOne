@@ -28,6 +28,7 @@
                             <select name="files_dir" id="files_dir">
                                 <option select= "selected" value="Base">请选择目录</option>
                             </select>
+                            <a href = "/updateOne/testTools/runSQL"  >跳转到SQL页面</a>
                     </td>
                 </tr>
                 <tr>
@@ -57,7 +58,12 @@
             <div id ="wars"></div>
             <div id ="libs"></div>
         </div>
-        <div id ="linux"></div>
+        <div id ="linux">
+            <div id="linux_wars_none"></div>
+            <div id="linux_libs_none"></div>
+            <div id="linux_wars"></div>
+            <div id="linux_libs"></div>
+        </div>
     </div>
 </body>
 </html>

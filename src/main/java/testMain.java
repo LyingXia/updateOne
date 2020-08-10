@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import oracle.jdbc.driver.OracleDriver;
 
 public class testMain {
     static String diverName="oracle.jdbc.driver.OracleDriver";
@@ -60,6 +59,6 @@ public class testMain {
         String sql_path = "C:\\Users\\Dell\\Desktop\\test.sql";
         String userid = "PAYMENT_ZGH01";
         String password = "cfca1234";
-        String a = ua.run_sql(sql_path,userid,password);
+        String a = ua.run_sql(sql_path,url);
     }
 }

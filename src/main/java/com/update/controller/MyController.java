@@ -14,5 +14,9 @@ public class MyController {
             return "/update_mechine";
     }
 
+    @RequestMapping("/runSQL")
+    public String SQLexecute(){
+        return "/run_sql";
+    }
 
 }

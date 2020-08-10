@@ -8,24 +8,37 @@
     height: auto ;
     line-height: 30px;
 }
+#title a{
+    float: right;
+}
 #files{
     height: 800px;
     width: 45%;
     /*background-color: red;*/
     float: left;
-    overflow: auto;
+    overflow-y: auto;
 }
 #linux{
     height: 800px;
     width: 55%;
     /*background-color: rebeccapurple;*/
     float: left;
+    overflow-y: auto;
 }
+
+#linux>div{
+    width:100%;
+    word-break:break-all;
+}
+
 .svnInfo{
     width: 600px;
 }
 .linuxInfo{
     width: 150px;
+}
+#sql_url{
+    width: 250px;
 }
 #show_svn,#run_update{
     margin-left: 25%;
@@ -38,4 +51,52 @@
 }
 #select_checkbox{
     display: none;
+}
+
+/*SQL页面*/
+.databaseInfo{
+    width: 150px;
+}
+#show_sql{
+    margin-left: 35%;
+}
+#run_sql{
+    margin-left: 15%;
+}
+
+#SQLs{
+    height: 800px;
+    width: 45%;
+    /*background-color: rebeccapurple;*/
+    float: left;
+}
+#sql_files{
+    height: 90%;
+    overflow-y: auto;
+}
+
+#results{
+    height: 800px;
+    width: 55%;
+    /*background-color: red;*/
+    float: left;
+    overflow-y: auto;
+}
+#results_show{
+    height: 800px;
+    width: 90%;
+    margin-top: -700px;
+    margin-left: 5%;
+    background-color: grey;
+    overflow-y: auto;
+    display: none;
+    z-index: 2;
+    position:absolute;
+    white-space: pre-line;
+}
+#results_show>p>button{
+    text-align: right;
+}
+#results_show_close{
+    position: relative;
 }

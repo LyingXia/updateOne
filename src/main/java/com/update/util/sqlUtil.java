@@ -3,18 +3,20 @@ package com.update.util;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.SQLExec;
 import org.apache.tools.ant.types.EnumeratedAttribute;
+import oracle.jdbc.driver.OracleDriver;
 
 import java.io.File;
 
 public class sqlUtil {
-    public static void run_sql(String sql_path,String userid,String password,String resutl_path){
+    public static void run_sql(String sql_path,String url,String userid,String password,String resutl_path){
         String[] a = sql_path.split(File.separator);
 //        String[] a = sql_path.split("\\\\");
         String dbname = a[a.length-1];
         SQLExec sqlExec = new SQLExec();
         //设置数据库参数
         sqlExec.setDriver("oracle.jdbc.driver.OracleDriver");
-        sqlExec.setUrl("jdbc:oracle:thin:@172.31.2.2:1521:TESTDB");
+//        sqlExec.setUrl("jdbc:oracle:thin:@172.31.2.2:1521:TESTDB");
+        sqlExec.setUrl(url);
         sqlExec.setUserid(userid);
         sqlExec.setPassword(password);
         //要执行的脚本

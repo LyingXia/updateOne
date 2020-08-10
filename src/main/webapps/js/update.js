@@ -69,7 +69,10 @@ $('document').ready(function(){
         var update_libs = {};
         update_files["linux"] = $("#linux_ip").val() + "linux_fgf"+$("#linux_port").val()+ "linux_fgf"+$("#linux_user").val()+ "linux_fgf"+$("#linux_pwd").val();
         update_files["svn_path"] = $("#files_dir").val();
-        $("#linux").text('');
+        $("#linux_wars_none").text('');
+        $("#linux_libs_none").text('');
+        $("#linux_wars").text('');
+        $("#linux_libs").text('');
         $("#wars input:checkbox").each(function () {
             if ($(this).is(':checked')) {
                 var str =  $(this).val()
@@ -193,9 +196,9 @@ $('document').ready(function(){
                 for (win_war_path in wars_update) {
                     var lin_war_path = wars_update[win_war_path];
                     if (lin_war_path.toString() == ""){
-                        $("#linux").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
+                        $("#linux_wars_none").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
                     }else {
-                        $("#linux").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
+                        $("#linux_wars").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
                     }
                 }
             },
@@ -223,9 +226,9 @@ $('document').ready(function(){
                 for (win_war_path in libs_update) {
                     var lin_war_path = libs_update[win_war_path];
                     if (lin_war_path.toString() == ""){
-                        $("#linux").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
+                        $("#linux_libs_none").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
                     }else {
-                        $("#linux").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
+                        $("#linux_libs").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
                     }
                 }
             },
