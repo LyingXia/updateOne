@@ -176,6 +176,31 @@ $('document').ready(function(){
         var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
         return reg.test(ip);
     }
+    function greenWarDone(win_path){
+        $("#wars input:checkbox").each(function () {
+            war1 = win_path.substring(win_path.lastIndexOf("/")+1,win_path.length)
+            if ($(this).is(':checked')) {
+                var str =  $(this).val()
+                war_name = str.substring(0,str.lastIndexOf("_"));
+                if (war_name == war1){
+                    $(this).prop("checked", false)
+                }
+            }
+        })
+    }
+    function greenLibDone(lib_path){
+        $("#libs input:checkbox").each(function () {
+            lib1 = lib_path.replace("/lib/","")
+            lib2 = lib1.substring(lib1.lastIndexOf("/")+1,lib1.length)
+            if ($(this).is(':checked')) {
+                var str =  $(this).val()
+                war_name = str.substring(0,str.lastIndexOf("_"));
+                if (war_name == lib2){
+                    $(this).prop("checked", false)
+                }
+            }
+        })
+    }
     function updateWarsOne(update_files){
         $.ajax({
             type: "post",
@@ -190,7 +215,7 @@ $('document').ready(function(){
                 }
                 if(wars_update =="linux服务器连接失败，请确认参数"){
                     alert("linux服务器连接失败，请确认参数\n");
-                    $("#linux").append("<p>linux服务器连接失败，请确认参数</p>");
+                    // $("#linux").append("<p>linux服务器连接失败，请确认参数</p>");
                     return
                 }
                 for (win_war_path in wars_update) {
@@ -199,6 +224,7 @@ $('document').ready(function(){
                         $("#linux_wars_none").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
                     }else {
                         $("#linux_wars").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
+                        greenWarDone(lin_war_path)
                     }
                 }
             },
@@ -221,6 +247,8 @@ $('document').ready(function(){
                     alert("请确认路径是否正确\n" +  svn_path);
                 }
                 if(wars_update =="linux服务器连接失败，请确认参数"){
+                    alert("linux服务器连接失败，请确认参数\n");
+                    // $("#linux").append("<p>linux服务器连接失败，请确认参数</p>");
                     return
                 }
                 for (win_war_path in libs_update) {
@@ -229,6 +257,7 @@ $('document').ready(function(){
                         $("#linux_libs_none").append("<p class='linux_none'>"+win_war_path+"=====未部署在linux服务器中</p>");
                     }else {
                         $("#linux_libs").append("<p>" + win_war_path + "============>" + lin_war_path + "</p>");
+                        greenLibDone(lin_war_path)
                     }
                 }
             },
