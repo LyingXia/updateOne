@@ -22,6 +22,10 @@
           <element id="library" level="project" name="Maven: ch.ethz.ganymed:ganymed-ssh2:build210" />
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
           <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.2.6" />
+          <element id="library" level="project" name="ojdbc7-12.1.0.2" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.4.4" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant:1.7.0" />
+          <element id="library" level="project" name="Maven: org.apache.ant:ant-launcher:1.7.0" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="updateOne/web/Web" />

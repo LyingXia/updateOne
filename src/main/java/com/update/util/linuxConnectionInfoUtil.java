@@ -59,7 +59,7 @@ public class linuxConnectionInfoUtil {
 
     public String[] getLinuxConnectionInfo(String linux_ip) {
         String str;
-        String[] arr = new String[4];
+        String[] arr;
         File f = new File(pu.getLinuxConnectionPath() + "linux_connection.csv");
         try {
             BufferedReader in = null;
@@ -69,9 +69,6 @@ public class linuxConnectionInfoUtil {
                 if (arr.length == 4 && arr[0].equals(linux_ip)) {
                    return arr;
                 }
-                else{
-                    return new String[4];
-                }
             }
             in.close();
         } catch (FileNotFoundException e) {
@@ -79,12 +76,12 @@ public class linuxConnectionInfoUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  arr;
+        return  new String[4];
     }
 
     public static void main(String[] args) {
          linuxConnectionInfoUtil li   = new linuxConnectionInfoUtil();
-         String linuxInfo[] = li.getLinuxConnectionInfo("linux");
+         String linuxInfo[] = li.getLinuxConnectionInfo("172.31.2.204");
          for (int i=0;i<linuxInfo.length;i++) {
              System.out.println(linuxInfo[i]);
          }
