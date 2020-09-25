@@ -1,4 +1,21 @@
 $('document').ready(function(){
+    $.ajax({
+        type: "post",
+        url: "/updateOne/update/linux_ips",
+        dataType:"json",
+        success: function (data) {
+            var linux_ips = data["linux_ips"];
+            console.log(linux_ips.length);
+            for (var i = linux_ips.length-1; i >=0; i--) {
+                console.log(linux_ips[i]);
+                $("#linux_ip").append("<option id =" + linux_ips[i] +  ">" + linux_ips[i] + "</option>");
+            }
+            $("#linux_ip").append("<option id =\"callAdmin\">若没有您需要的IP，请联系管理员~</option>");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert("获取下拉框文件信息失败-"+errorThrown);
+        }
+    });
     function getFileList(file_select){
         $("#files_dir option").remove()
         var requestData = {"file_dir":file_select}
@@ -12,7 +29,7 @@ $('document').ready(function(){
                 console.log(file.length);
                 for (var i = file.length-1; i >=0; i--) {
                     console.log(file[i]);
-                    $("#files_dir").append("<option id =\" + file[i] +  \">" + file[i] + "</option>");
+                    $("#files_dir").append("<option id =" + file[i] +  ">" + file[i] + "</option>");
                 }
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -67,7 +84,7 @@ $('document').ready(function(){
         var update_files = {};
         var update_wars = {};
         var update_libs = {};
-        update_files["linux"] = $("#linux_ip").val() + "linux_fgf"+$("#linux_port").val()+ "linux_fgf"+$("#linux_user").val()+ "linux_fgf"+$("#linux_pwd").val();
+        update_files["linux"] = $("#linux_ip").val();
         update_files["svn_path"] = $("#files_dir").val();
         $("#linux_wars_none").text('');
         $("#linux_libs_none").text('');

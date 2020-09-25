@@ -239,5 +239,34 @@ public class sqlTxtUtil {
     }
 
     public static void main(String[] args) {
+        String[] a = Integer.toBinaryString(1).split("");
+        String[] b = Integer.toBinaryString(2).split("");
+        int s =0;
+        if(b[0] == "-" || a[0] == "-"){
+            if(!a[0].equals(b[0])){
+                s =s +1;
+            }
+        }
+        if(a.length>=b.length){
+            for (int i=0;i<a.length;i++){
+                if(i<b.length){
+                    if(!a[i].equals(b[i])){
+                        s=s+1;
+                    }
+                }else{
+                    s=s+1;
+                }
+            }
+        }else{
+            for (int i=0;i<b.length;i++){
+                if(i<a.length){
+                    if(!a[i].equals(b[i])){
+                        s=s+1;
+                    }
+                }else{
+                    s=s+1;
+                }
+            }
+        }
     }
 }

@@ -119,5 +119,24 @@ public class PropertiesUtil {
         return SvnPath;
     }
 
+    public  String getLinuxConnectionPath() {
+        Resource resource = null;
+        Properties props = null;
+        String SvnPath = null;
+        try {
+            resource = new ClassPathResource("META-INF/application.properties");
+            props = PropertiesLoaderUtils.loadProperties(resource);
+            if (!isWindows()) {
+                linuxSvnPath = (String) props.get("linux.connection.result.path");
+                SvnPath = linuxSvnPath;
+            }else {
+                SvnPath = (String) props.get("win.connection.result.path");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return SvnPath;
+    }
+
 
 }

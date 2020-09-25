@@ -37,10 +37,13 @@
                     </td>
                     <td>
                         <%--<input type="text" value = "172.31.2.126" id="linux_ip" class="linuxInfo"/>--%>
-                        <input type="text" value = "请输入服务器ip" id="linux_ip" class="linuxInfo"/>
-                        <input type="text" value= "22" id="linux_port" class="linuxInfo"/>
-                        <input type="text" value= "root" id="linux_user" class="linuxInfo"/>
-                        <input type="text" value = "请输入服务器passwd" id="linux_pwd" class="linuxInfo"/>
+                            <select name="linux_ip" id="linux_ip">
+                                <option select= "selected" value="Base">请选择ip</option>
+                            </select>
+                            <span>目前linux服务器信息写在文件中，只需要选择IP即可</span>
+                        <%--<input type="text" value= "22" id="linux_port" class="linuxInfo"/>--%>
+                        <%--<input type="text" value= "root" id="linux_user" class="linuxInfo"/>--%>
+                        <%--<input type="text" value = "请输入服务器passwd" id="linux_pwd" class="linuxInfo"/>--%>
                         <%--<input type="text" value = "cfca1234" id="linux_pwd" class="linuxInfo"/>--%>
                     </td>
                 </tr>

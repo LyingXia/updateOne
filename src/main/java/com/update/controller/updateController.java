@@ -1,7 +1,9 @@
 package com.update.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.update.service.linuxInfoService;
 import com.update.service.updateAllService;
+import com.update.util.linuxConnectionInfoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class updateController {
     private final static Logger logger = LoggerFactory.getLogger(updateController.class);
     private static updateAllService ua = new updateAllService();
+    private static linuxInfoService li = new linuxInfoService();
+    private static linuxConnectionInfoUtil lciu = new linuxConnectionInfoUtil();
+
+    @RequestMapping(value="/linux_ips",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public String linux_ip(){
+        return  li.linux_ip();
+    }
 
     @RequestMapping(value = "/showSVN",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
@@ -32,21 +42,21 @@ public class updateController {
     @RequestMapping(value = "/updateFew",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updateFew(@RequestParam("wars") String wars, @RequestParam("libs") String libs, @RequestParam("linux") String linux, @RequestParam("svn_path") String svn_path){
-        String [] linuxInfo = linux.split("linux_fgf");
+        String [] linuxInfo = lciu.getLinuxConnectionInfo(linux);
         return ua.update_few(wars,libs,linuxInfo,svn_path);
     }
 
     @RequestMapping(value = "/updateLibsFew",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updateLibsFew(@RequestParam("libs") String libs, @RequestParam("linux") String linux, @RequestParam("svn_path") String svn_path){
-        String [] linuxInfo = linux.split("linux_fgf");
+        String [] linuxInfo = lciu.getLinuxConnectionInfo(linux);
         return ua.update_lib_few(libs,linuxInfo,svn_path);
     }
 
     @RequestMapping(value = "/updateWarsFew",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
     @ResponseBody
     public String updateWarsFew(@RequestParam("wars") String wars,@RequestParam("linux") String linux, @RequestParam("svn_path") String svn_path){
-        String [] linuxInfo = linux.split("linux_fgf");
+        String [] linuxInfo = lciu.getLinuxConnectionInfo(linux);
         return ua.update_war_few(wars,linuxInfo,svn_path);
     }
 
